@@ -116,7 +116,7 @@ This is the default build target.
 
 Do not run `docs` for now. Generating documentation eats up memory and build
 time and is largely obsolete when using GitHub. -->
-  <target name="build" depends="install" />
+<!--   <target name="build" depends="install" />
 
   </target>
 
@@ -152,6 +152,6 @@ time and is largely obsolete when using GitHub. -->
     <pdo url="${env.db.driver}:host=${env.db.host}" userId="${env.db.user.sudo}" password="${env.db.user.sudo.password}" onerror="abort">
       DROP DATABASE IF EXISTS ${env.db.name};
     </pdo>
-  </target>
+  </target> -->
 
 </project>
