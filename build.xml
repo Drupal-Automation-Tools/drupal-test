@@ -116,7 +116,7 @@ This is the default build target.
 
 Do not run `docs` for now. Generating documentation eats up memory and build
 time and is largely obsolete when using GitHub. -->
-  <target name="build" depends="echo_hello">
+  <target name="build" depends="db_drop, db_create, echo_hello">
     <echo>Cool!</echo>
   </target>
 
@@ -142,7 +142,7 @@ time and is largely obsolete when using GitHub. -->
     </drush>
     <phingcall target="drake_install"/>
     <echo>Project installation finished</echo>
-  </target>
+  </target>-->
 
   <target name="db_create">
     <echo>Create project database</echo>
@@ -156,6 +156,6 @@ time and is largely obsolete when using GitHub. -->
     <pdo url="${env.db.driver}:host=${env.db.host}" userId="${env.db.user.sudo}" password="${env.db.user.sudo.password}" onerror="abort">
       DROP DATABASE IF EXISTS ${env.db.name};
     </pdo>
-  </target> -->
+  </target> 
 
 </project>
