@@ -174,7 +174,7 @@ time and is largely obsolete when using GitHub. -->
     <if>
       <available file="${project.drupal.settings.path}${project.drupal.settings.file}" />
       <then>
-        <chmod file="${project.drupal.settings.path}${project.drupal.settings.file}" mode="0777" />
+        <chmod dir="${project.drupal.settings.path}" mode="0777" />
         <delete file="${project.drupal.settings.path}${project.drupal.settings.file}" quiet='true' />
         <echo>Delete settings.php file</echo>
       </then>
@@ -182,7 +182,7 @@ time and is largely obsolete when using GitHub. -->
   </target>
 
   <target name="drupal_settings_copy" description="Copy settings file if exist">
-    <copy file="build/files/${project.drupal.settings.file}" tofile="${project.drupal.settings.path}${project.drupal.settings.file}" overwrite="true">
+    <copy file="build/files/${project.drupal.settings.file}" tofile="${project.drupal.settings.path}${project.drupal.settings.file}">
       <filterchain>
         <replacetokens begintoken="%%" endtoken="%%">
           <!-- MySQL TOKENS -->
