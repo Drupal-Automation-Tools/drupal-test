@@ -161,7 +161,7 @@ time and is largely obsolete when using GitHub. -->
             userId="${db.mysql.user}" password="${db.mysql.password}"
             onerror="abort">
             <fileset dir="backup">
-                <include name="*.sql.gz"/>
+                <include name="*.sql"/>
             </fileset>
        </pdo>
   </target>  
