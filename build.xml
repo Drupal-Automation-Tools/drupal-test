@@ -189,6 +189,7 @@ time and is largely obsolete when using GitHub. -->
           <token key="db_name" value="${db.mysql.name}" />
           <token key="db_username" value="${db.mysqluser}" />
           <token key="db_password" value="${db.mysql.password}" />
+          <token key="host" value="${db.mysql.host}" />
         </replacetokens>
       </filterchain>
     </copy>
