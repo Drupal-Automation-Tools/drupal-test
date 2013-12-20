@@ -116,11 +116,11 @@ This is the default build target.
 
 Do not run `docs` for now. Generating documentation eats up memory and build
 time and is largely obsolete when using GitHub. -->
-<!--   <target name="build" depends="install" />
-
+  <target name="build" />
+    <echo>Cool!</echo>
   </target>
 
-  <target name="install" depends="db_drop, db_create" description="Install site">
+<!--   <target name="install" depends="db_drop, db_create" description="Install site">
     <echo>Project installation started</echo>
     <drush command="site-install" assume="yes">
       <option name="root">${env.dir}${project.drupal.dir}</option>
