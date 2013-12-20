@@ -172,4 +172,10 @@ time and is largely obsolete when using GitHub. -->
     <phingcall target="cc"/>
   </target>
 
+  <target name="cc" description="Clear cache">
+    <drush command="cc">
+      <param>all</param>
+    </drush>     
+  </target>  
+
 </project>
