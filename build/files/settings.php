@@ -215,10 +215,10 @@ $databases = array (
   array (
     'default' => 
     array (
-      'database' => 'drupal-test',
+      'database' => 'drupal-jenkins-test',
       'username' => 'root',
       'password' => 'root',
-      'host' => 'localhost',
+      'host' => '127.0.0.1',
       'port' => '',
       'driver' => 'mysql',
       'prefix' => '',
