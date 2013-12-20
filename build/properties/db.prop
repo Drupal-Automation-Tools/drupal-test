@@ -1,0 +1,5 @@
+db.mysql.driver=mysql
+db.mysql.host=127.0.0.1
+db.mysql.name=drupal-jenkins-test
+db.mysql.user=root
+db.mysql.password=root

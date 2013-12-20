@@ -103,7 +103,7 @@ Drush Make and Simpletest support has been sponsored by [DBC](http://www.dbc.dk/
 <project name="phing-drupal" default="build"  phingVersion="2.6.1"> 
 
   <property file="build/properties/project.prop"/>
-  <property file="build/properties/env.prop"/>
+  <property file="build/properties/db.prop"/>
 
   <taskdef name="drush" classpath="build" classname="DrushTask"/>
 
@@ -120,16 +120,11 @@ Do not run `docs` for now. Generating documentation eats up memory and build
 time and is largely obsolete when using GitHub. -->
   <target name="build" depends="install">
     <echo>Cool!</echo>
-  </target>
-
-  <target name="echo_hello">
-    <echo>Hello</echo>    
   </target>  
 
-   <target name="install" depends="db_drop, db_create" description="Install site">
+  <target name="install" depends="db_drop, db_create, db_restore, drupal_setting_file" description="Install site">
     <echo>Project installation started</echo>
-    <drush command="site-install" assume="yes">
-      <!-- <option name="root">${env.dir}${project.drupal.dir}</option> -->
+    <!-- <drush command="site-install" assume="yes">
       <option name="db-url">${env.db.driver}://${env.db.user}:${env.db.password}@${env.db.host}/${env.db.name}</option>
       <option name="db-su">${env.db.user.sudo}</option>
       <option name="db-su-pw">${env.db.user.sudo.password}</option>
@@ -141,7 +136,7 @@ time and is largely obsolete when using GitHub. -->
       <option name="site-name">${project.drupal.site.name}</option>
       <option name="site-mail">${project.drupal.site.mail}</option>
       <param>standard</param>
-    </drush>
+    </drush>  -->
     <phingcall target="drake_install"/>
     <phingcall target="simpletest_comment"/>
     <echo>Project installation finished</echo>
@@ -149,26 +144,45 @@ time and is largely obsolete when using GitHub. -->
 
   <target name="db_create">
     <echo>Create project database</echo>
-    <pdo url="${env.db.driver}:host=${env.db.host}" userId="${env.db.user.sudo}" password="${env.db.user.sudo.password}" onerror="abort">
-      CREATE DATABASE `${env.db.name}`;
+    <pdo url="${db.mysql.driver}:host=${db.mysql.host}" userId="${db.mysql.user}" password="${db.mysql.password}" onerror="abort">
+      CREATE DATABASE `${db.mysql.name}`;
     </pdo>
   </target>
   
   <target name="db_drop">
     <echo>Drop project database</echo>
-    <pdo url="${env.db.driver}:host=${env.db.host}" userId="${env.db.user.sudo}" password="${env.db.user.sudo.password}" onerror="abort">
-      DROP DATABASE IF EXISTS `${env.db.name}`;
+    <pdo url="${db.mysql.driver}:host=${db.mysql.host}" userId="${db.mysql.user}" password="${db.mysql.password}" onerror="abort">
+      DROP DATABASE IF EXISTS `${db.mysql.name}`;
     </pdo>
   </target> 
 
+  <target name="db_restore">
+    <pdo url="${db.mysql.driver}:host=${db.mysql.host};dbname=${db.mysql.name}" encoding="utf8"
+            userId="${db.mysql.user}" password="${db.mysql.password}"
+            onerror="abort">
+            <fileset dir="../backup">
+                <include name="*.mysql.gz"/>
+            </fileset>
+       </pdo>
+  </target>  
+
+  <target name="drupal_setting_file" description="Copy drupal settings file">
+    <copy file="files/${project.drupal.settings.file}" 
+      tofile="${project.drupal.settings.path}${project.drupal.settings.file}" overwrite="true">
+      <filterchain>
+        <replacetokens begintoken="%%" endtoken="%%">
+          <!-- MySQL TOKENS -->
+          <token key="db_name" value="${db.mysql.name}" />
+          <token key="db_username" value="${db.mysqluser}" />
+          <token key="db_password" value="${db.mysql.password}" />
+        </replacetokens>
+      </filterchain>
+    </copy>    
+  </target>  
+
   <target name="drake_install" description="Install drake migration">
     <drush command="pm-enable" assume="yes">
-      <!-- <option name="root">${env.dir}${project.drupal.dir}</option> -->
       <param>simpletest</param>
-    </drush>
-    <drush command="pm-disable" assume="yes">
-      <!-- <option name="root">${env.dir}${project.drupal.dir}</option> -->
-      <param>overlay, toolbar, color, help, rdf, shortcut</param>
     </drush>
     <phingcall target="cc"/>
   </target>
@@ -180,9 +194,10 @@ time and is largely obsolete when using GitHub. -->
   </target>  
 
   <target name="simpletest_comment" description="Run simpletest">
-    <drush command="test-run">
+<!--     <drush command="test-run">
       <param>Comment</param>
-    </drush>     
+    </drush>  -->    
+    <echo>Run Test</echo>
   </target>  
 
 </project>

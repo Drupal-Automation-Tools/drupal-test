@@ -5,3 +5,6 @@ project.drupal.locale=en
 project.drupal.clean_url=1
 project.drupal.site.name=Jenkins-test
 project.drupal.site.mail=site@admin.com
+
+project.drupal.settings.path=sites/default/
+project.drupal.settings.file=settings.php
