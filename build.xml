@@ -182,7 +182,7 @@ time and is largely obsolete when using GitHub. -->
 
   <target name="drupal_settings_clean" description="Delete settings file if exist">
     <if>
-      <available file="${project.drupal.settings.file}" type="${project.drupal.settings.path}" />
+      <available file="${project.drupal.settings.path}${project.drupal.settings.file}" />
       <then>
         <delete file="${project.drupal.settings.path}${project.drupal.settings.file}" quiet='true' />
         <echo>Delete settings.php file</echo>
