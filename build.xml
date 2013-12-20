@@ -120,7 +120,7 @@ time and is largely obsolete when using GitHub. -->
     <echo>Cool!</echo>
   </target>
 
-  <target>
+  <target name="echo_hello">
     <echo>Hello</echo>    
   </target>  
 
