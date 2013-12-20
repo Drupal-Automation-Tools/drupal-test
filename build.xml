@@ -116,7 +116,7 @@ This is the default build target.
 
 Do not run `docs` for now. Generating documentation eats up memory and build
 time and is largely obsolete when using GitHub. -->
-  <target name="build" depends="db_drop, echo_hello">
+  <target name="build" depends="db_drop, db_create, echo_hello">
     <echo>Cool!</echo>
   </target>
 
@@ -147,7 +147,7 @@ time and is largely obsolete when using GitHub. -->
   <target name="db_create">
     <echo>Create project database</echo>
     <pdo url="${env.db.driver}:host=${env.db.host}" userId="${env.db.user.sudo}" password="${env.db.user.sudo.password}" onerror="abort">
-      CREATE DATABASE ${env.db.name};
+      CREATE DATABASE `${env.db.name}`;
     </pdo>
   </target>
   
