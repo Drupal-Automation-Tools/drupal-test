@@ -105,6 +105,8 @@ Drush Make and Simpletest support has been sponsored by [DBC](http://www.dbc.dk/
   <property file="build/properties/project.prop"/>
   <property file="build/properties/env.prop"/>
 
+  <taskdef name="drush" classpath="build" classname="DrushTask"/>
+
 <!-- ## Main targets -->
 
 <!-- ### Build project
