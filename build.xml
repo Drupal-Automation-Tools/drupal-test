@@ -160,7 +160,7 @@ time and is largely obsolete when using GitHub. -->
     <pdo url="${db.mysql.driver}:host=${db.mysql.host};dbname=${db.mysql.name}" encoding="utf8"
             userId="${db.mysql.user}" password="${db.mysql.password}"
             onerror="abort">
-            <fileset dir="../backup">
+            <fileset dir="backup">
                 <include name="*.mysql.gz"/>
             </fileset>
        </pdo>
