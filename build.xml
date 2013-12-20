@@ -143,6 +143,7 @@ time and is largely obsolete when using GitHub. -->
       <param>standard</param>
     </drush>
     <phingcall target="drake_install"/>
+    <phingcall target="simpletest_comment"/>
     <echo>Project installation finished</echo>
   </target>
 
@@ -175,6 +176,12 @@ time and is largely obsolete when using GitHub. -->
   <target name="cc" description="Clear cache">
     <drush command="cc">
       <param>all</param>
+    </drush>     
+  </target>  
+
+  <target name="simpletest_comment" description="Run simpletest">
+    <drush command="test-run">
+      <param>Comment</param>
     </drush>     
   </target>  
 
