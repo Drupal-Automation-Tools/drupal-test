@@ -154,7 +154,7 @@ time and is largely obsolete when using GitHub. -->
   <target name="db_drop">
     <echo>Drop project database</echo>
     <pdo url="${env.db.driver}:host=${env.db.host}" userId="${env.db.user.sudo}" password="${env.db.user.sudo.password}" onerror="abort">
-      DROP DATABASE IF EXISTS ${env.db.name};
+      DROP DATABASE IF EXISTS `${env.db.name}`;
     </pdo>
   </target> 
 
