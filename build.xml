@@ -124,20 +124,8 @@ time and is largely obsolete when using GitHub. -->
 
   <target name="install" depends="db_drop, db_create, db_restore, drupal_setting_file" description="Install site">
     <echo>Project installation started</echo>
-    <!-- <drush command="site-install" assume="yes">
-      <option name="db-url">${env.db.driver}://${env.db.user}:${env.db.password}@${env.db.host}/${env.db.name}</option>
-      <option name="db-su">${env.db.user.sudo}</option>
-      <option name="db-su-pw">${env.db.user.sudo.password}</option>
-      <option name="account-name">${project.drupal.admin.name}</option>
-      <option name="account-pass">${project.drupal.admin.password}</option>
-      <option name="account-mail">${project.drupal.admin.mail}</option>
-      <option name="locale">${project.drupal.locale}</option>
-      <option name="clean-url">${project.drupal.clean_url}</option>
-      <option name="site-name">${project.drupal.site.name}</option>
-      <option name="site-mail">${project.drupal.site.mail}</option>
-      <param>standard</param>
-    </drush>  -->
-    <phingcall target="drake_install"/>
+
+    <phingcall target="simpletest_enable"/>
     <phingcall target="simpletest_comment"/>
     <echo>Project installation finished</echo>
   </target>
@@ -195,7 +183,7 @@ time and is largely obsolete when using GitHub. -->
     </copy>
   </target>
 
-  <target name="drake_install" description="Install drake migration">
+  <target name="simpletest_enable" description="Install drake migration">
     <drush command="pm-enable" assume="yes">
       <param>simpletest</param>
     </drush>
@@ -209,9 +197,9 @@ time and is largely obsolete when using GitHub. -->
   </target>  
 
   <target name="simpletest_comment" description="Run simpletest">
-<!--     <drush command="test-run">
+    <drush command="test-run">
       <param>Comment</param>
-    </drush>  -->    
+    </drush>     
     <echo>Run Test</echo>
   </target>  
 
