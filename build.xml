@@ -116,7 +116,7 @@ This is the default build target.
 
 Do not run `docs` for now. Generating documentation eats up memory and build
 time and is largely obsolete when using GitHub. -->
-  <target name="build" depends="db_drop, db_create, echo_hello">
+  <target name="build" depends="install">
     <echo>Cool!</echo>
   </target>
 
@@ -124,10 +124,10 @@ time and is largely obsolete when using GitHub. -->
     <echo>Hello</echo>    
   </target>  
 
-<!--   <target name="install" depends="db_drop, db_create" description="Install site">
+   <target name="install" depends="db_drop, db_create" description="Install site">
     <echo>Project installation started</echo>
     <drush command="site-install" assume="yes">
-      <option name="root">${env.dir}${project.drupal.dir}</option>
+      <!-- <option name="root">${env.dir}${project.drupal.dir}</option> -->
       <option name="db-url">${env.db.driver}://${env.db.user}:${env.db.password}@${env.db.host}/${env.db.name}</option>
       <option name="db-su">${env.db.user.sudo}</option>
       <option name="db-su-pw">${env.db.user.sudo.password}</option>
@@ -140,9 +140,9 @@ time and is largely obsolete when using GitHub. -->
       <option name="site-mail">${project.drupal.site.mail}</option>
       <param>standard</param>
     </drush>
-    <phingcall target="drake_install"/>
+    <!-- <phingcall target="drake_install"/> -->
     <echo>Project installation finished</echo>
-  </target>-->
+  </target>
 
   <target name="db_create">
     <echo>Create project database</echo>
