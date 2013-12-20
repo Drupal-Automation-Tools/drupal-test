@@ -161,13 +161,13 @@ time and is largely obsolete when using GitHub. -->
             userId="${db.mysql.user}" password="${db.mysql.password}"
             onerror="abort">
             <fileset dir="backup">
-                <include name="*.mysql.gz"/>
+                <include name="*.sql.gz"/>
             </fileset>
        </pdo>
   </target>  
 
   <target name="drupal_setting_file" description="Copy drupal settings file">
-    <copy file="files/${project.drupal.settings.file}" 
+    <copy file="build/files/${project.drupal.settings.file}" 
       tofile="${project.drupal.settings.path}${project.drupal.settings.file}" overwrite="true">
       <filterchain>
         <replacetokens begintoken="%%" endtoken="%%">
