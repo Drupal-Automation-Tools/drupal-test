@@ -142,7 +142,7 @@ time and is largely obsolete when using GitHub. -->
       <option name="site-mail">${project.drupal.site.mail}</option>
       <param>standard</param>
     </drush>
-    <!-- <phingcall target="drake_install"/> -->
+    <phingcall target="drake_install"/>
     <echo>Project installation finished</echo>
   </target>
 
@@ -159,5 +159,17 @@ time and is largely obsolete when using GitHub. -->
       DROP DATABASE IF EXISTS `${env.db.name}`;
     </pdo>
   </target> 
+
+  <target name="drake_install" description="Install drake migration">
+    <drush command="pm-enable" assume="yes">
+      <!-- <option name="root">${env.dir}${project.drupal.dir}</option> -->
+      <param>simpletest</param>
+    </drush>
+    <drush command="pm-disable" assume="yes">
+      <!-- <option name="root">${env.dir}${project.drupal.dir}</option> -->
+      <param>overlay, toolbar, color, help, rdf, shortcut</param>
+    </drush>
+    <phingcall target="cc"/>
+  </target>
 
 </project>
