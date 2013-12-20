@@ -183,7 +183,7 @@ time and is largely obsolete when using GitHub. -->
     <if>
       <available file="${project.drupal.settings.path}${project.drupal.settings.file}" />
       <then>
-        <chmod dir="${project.drupal.settings.path}" perm="777" />
+        <chmod file="${project.drupal.settings.path}${project.drupal.settings.file}" perm="0777" />
         <delete file="${project.drupal.settings.path}${project.drupal.settings.file}" quiet='true' />
         <echo>Delete settings.php file</echo>
       </then>
