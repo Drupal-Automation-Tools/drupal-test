@@ -100,7 +100,7 @@ Drush Make and Simpletest support has been sponsored by [DBC](http://www.dbc.dk/
 </a>
 -->
 
-<project name="phing-drupal"  phingVersion="2.6.1"> 
+<project name="phing-drupal" default="build"  phingVersion="2.6.1"> 
 
   <property file="build/properties/project.prop"/>
   <property file="build/properties/env.prop"/>
@@ -116,9 +116,13 @@ This is the default build target.
 
 Do not run `docs` for now. Generating documentation eats up memory and build
 time and is largely obsolete when using GitHub. -->
-<!--   <target name="build" />
+  <target name="build" depends="echo_hello" />
     <echo>Cool!</echo>
-  </target> -->
+  </target>
+
+  <target>
+    <echo>Hello</echo>    
+  </target>  
 
 <!--   <target name="install" depends="db_drop, db_create" description="Install site">
     <echo>Project installation started</echo>
