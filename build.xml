@@ -146,7 +146,9 @@ time and is largely obsolete when using GitHub. -->
 
   <target name="phpcs"> 
     <exec executable="phpcs">
-      <arg line="--standard=Drupal --extensions=php,inc sites/all/modules" />
+      <arg value="--standard=Drupal" />
+      <arg value="--extensions=php,inc" />
+      <arg path="sites/all/modules" />
     </exec>
   </target>
 
