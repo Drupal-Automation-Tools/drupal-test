@@ -118,7 +118,7 @@ This is the default build target.
 
 Do not run `docs` for now. Generating documentation eats up memory and build
 time and is largely obsolete when using GitHub. -->
-  <target name="build" depends="coder-review-d7">
+  <target name="build" depends="lint-php, lint-php-custom">
     <echo>Cool!</echo>
   </target>  
 
@@ -130,179 +130,20 @@ time and is largely obsolete when using GitHub. -->
     <echo>Project installation finished</echo>
   </target>
 
-  <target name="coder-review-d7" description="Review code using Drupal 7 Coder module">
-    <!-- Setup properties for running Coder Review.
-         For some reason these properties are not passed correctly through to
-         subtargets when defining them within the phingcall. -->
-    <property name="coder.review.command" value="coder-review"/>
-
-    <!-- Download and enable the Coder Review module -->
-    <phingcall target="enable-module">
-      <property name="project" value="coder"/>
-      <property name="project.version" value="7.x-1.0"/>
-      <property name="module" value="coder_review"/>
-    </phingcall>
-
-    <!-- Perform actual coder review for each style -->
-    <foreach target="coder-review" param="coder.review.type"
-             list="comment,i18n,security,sql,style" />
-  </target> 
-
-  <target name="enable-module"
-          depends="setup-phing-drush">
-    <!-- If project is not set then we assume that the module name is also
-         the project name. -->
-    <property name="project" value="${module}" override="no"/>
-
-    <!-- If the module is not already available then download it -->
-    <drush command="pm-list" returnProperty="modules.available"/>
-    <php function="strpos" returnProperty="module.available">
-      <param>${modules.available}</param>
-      <param>${module}</param>
-    </php>
-    <if>
-      <not><istrue value="${module.available}"/></not>
-      <then>
-        <!-- Download specific version if specified -->
-        <condition property="download" value="${project}-${project.version}">
-          <isset property="project.version"/>
-        </condition>
-        <property name="download" value="${project}" override="false"/>
-
-        <drush command="pm-download" assume="yes">
-          <param>${download}</param>
-        </drush>
-      </then>
-    </if>
-
-    <!-- Enable the module -->
-    <drush command="pm-enable" assume="yes">
-      <param>${module}</param>
-    </drush>
+  <target name="lint-php"
+          description="Check all PHP files for syntax errors using PHPLint"
+          depends="init">
+    <phplint haltonfailure="true">
+      <fileset refid="src.php" />
+    </phplint>
   </target>
 
-  <target name="setup-phing-drush"
-          depends="setup-dirs" >
-    <!-- Clone the project -->
-    <phingcall target="setup-git-repo">
-      <property name="repo.dir"
-                value="${project.toolsdir}/phing-drush"/>
-      <property name="repo.url"
-                value="${phing.drush.repository.url}" />
-      <property name="repo.revision"
-                value="${phing.drush.repository.revision}" />
-    </phingcall>
-
-    <!-- Register as custom Phing task -->
-    <taskdef name="drush" classname="DrushTask"
-             classpath="${project.toolsdir}/phing-drush" />
-
-    <!-- Run drush from the project Drupal directory -->
-    <property name="drush.root" value="${project.drupal.dir}"/>
-  </target>
-
-  <target name="setup-dirs"
-          depends="load-properties">
-    <if>
-      <isset property="drupal.make.dir"/>
-      <then>
-        <property name="project.drupal.dir"
-                value="${project.basedir}/${drupal.make.dir}" />
-      </then>
-      <else>
-        <property name="project.drupal.dir"
-                value="${project.basedir}" />
-      </else>
-    </if>
-
-    <property name="project.sitesdir"
-              value="${project.drupal.dir}/${project.code.dir}" />
-    <property name="project.builddir"
-              value="${project.basedir}/build" />
-    <property name="project.toolsdir"
-              value="${project.builddir}/tools" />
-    <property name="project.coveragedir"
-              value="${project.builddir}/coverage" />
-    <property name="project.logdir"
-              value="${project.builddir}/logs" />
-    <property name="project.testdir"
-              value="${project.builddir}/tests" />
-  </target>
-
-  <target name="load-properties">
-    <php function="dirname" returnProperty="phing.dir">
-      <param value="${phing.file}"/>
-    </php>
-
-    <property name="project.basedir" value="${phing.dir}" />
-
-    <!-- Use condition instead of unless property as we cannot unset properties in Phing -->
-    <if>
-      <or>
-        <!-- `istrue` evaluates to true is value is not set we need to check
-             `isset` as well -->
-        <not><istrue value="${project.properties.loaded}" /></not>
-        <not><isset property="project.properties.loaded" /></not>
-      </or>
-      <then>
-<!-- By default Jenkins runs Phing from the directory containing the build
-file.  If this file is located in a subdirectory - e.g. when using Phing Drupal as a submodule - we need to reset the project basedir and reload properties.
-
-NB: This only works if the subdirectory is directly within the Drupal
-root directory. -->
-        <if>
-          <!-- If `build.properties` exists then assume we have a
-               project root directory -->
-          <available file="${project.basedir}/../build.properties"/>
-          <then>
-            <resolvepath propertyName="project.basedir"
-                         file="${project.basedir}/../"/>
-          </then>
-        </if>
-
-        <!-- By default use default properties file
-             `build.default.properties` -->
-        <property name="project.properties.file"
-                  value="${phing.dir}/build.default.properties" />
-        <!-- Load the default properties.
-             Override in case `load-properties` are called multiple times. -->
-        <property file="${project.properties.file}" override="true" />
-
-        <!-- Allow override using `build.properties` in build file
-             directory -->
-        <available file="${phing.dir}/build.properties"
-                   property="project.properties.file"
-                   value="${phing.dir}/build.properties" />
-        <!-- Allow override using `build.properties` in project base
-             directory -->
-        <available file="${project.basedir}/build.properties"
-                   property="project.properties.file"
-                   value="${project.basedir}/build.properties" />
-
-        <!-- Load the overriding properties. -->
-        <property file="${project.properties.file}" override="true" />
-
-        <!-- Set property to prevent unnecessary additional invocations of this target -->
-        <property name="project.properties.loaded" value="true" />
-      </then>
-    </if>
-  </target>
-
-  <target name="setup-git-repo">
-    <!-- Only clone if repository does not exist already -->
-    <if>
-      <not><available file="${repo.dir}" /></not>
-      <then>
-        <!-- Set revision to HEAD if not already defined -->
-        <property name="repo.revision" value="HEAD" override="false"/>
-
-        <echo>Cloning ${repo.url} ${repo.revision} into ${repo.dir}</echo>
-        <!-- The [`gitclone` task](http://www.phing.info/docs/guide/stable/chapters/appendixes/AppendixC-OptionalTasks.html#GitCloneTask)
-             does not seem to work. Use exec instead. -->
-        <exec command="git clone ${repo.url} ${repo.dir}" />
-        <exec command="git checkout ${repo.revision}" dir="${repo.dir}"/>
-      </then>
-    </if>
+  <target name="lint-php-custom"
+          description="Check custom PHP files for syntax errors using PHPLint"
+          depends="init">
+    <phplint haltonfailure="true">
+      <fileset refid="src.php.custom" />
+    </phplint>
   </target>
 
   <target name="db_create">
