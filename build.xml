@@ -118,7 +118,7 @@ This is the default build target.
 
 Do not run `docs` for now. Generating documentation eats up memory and build
 time and is largely obsolete when using GitHub. -->
-  <target name="build" depends="lint-php, lint-php-custom">
+  <target name="build" depends="code_check">
     <echo>Cool!</echo>
   </target>  
 
@@ -130,21 +130,24 @@ time and is largely obsolete when using GitHub. -->
     <echo>Project installation finished</echo>
   </target>
 
-  <target name="lint-php"
-          description="Check all PHP files for syntax errors using PHPLint"
-          >
-    <phplint haltonfailure="true">
-      <fileset refid="src.php" />
-    </phplint>
-  </target>
-
-  <target name="lint-php-custom"
-          description="Check custom PHP files for syntax errors using PHPLint"
-          >
-    <phplint haltonfailure="true">
-      <fileset refid="src.php.custom" />
-    </phplint>
-  </target>
+  <target name="code_check" description="Check codes">
+    <drush command="dl">
+      <param>coder</param>
+    </drush>
+    <drush command="pm-enable">
+      <param>coder</param>
+    </drush>
+    <drush command="dl">
+      <param>standalone_coder_review</param>
+    </drush>
+    <drush command="pm-enable">
+      <param>standalone_coder_review</param>
+    </drush> 
+    <drush command="standalone-coder-review">
+      <option name="files">source</option>
+      <option name="output-filename">review.xml</option>  
+    </drush>     
+  </target>  
 
   <target name="db_create">
     <echo>Create project database</echo>
