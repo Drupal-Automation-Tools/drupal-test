@@ -140,8 +140,22 @@ time and is largely obsolete when using GitHub. -->
     </fileset>  
     <phplint haltonfailure="true">
       <fileset refid="phpfiles" />
-    </phplint>  
+    </phplint> 
+
   </target>  
+
+  <target name="phpcs"> 
+    <fileset dir="." id="drupalfiles"> 
+      <include name="sites/all/modules/**/*.php" /> 
+      <include name="sites/all/modules/**/*.inc" /> 
+      <include name="sites/all/modules/**/*.module" /> 
+      <include name="sites/all/modules/**/*.install" />
+    </fileset> 
+    <phpcodesniffer standard="Drupal" format="checkstyle"> 
+      <fileset refid="drupalfiles" /> 
+      <formatter type="checkstyle" outfile="reports/checkstyle.xml"/> 
+    </phpcodesniffer> 
+  </target>
 
   <target name="db_create">
     <echo>Create project database</echo>
