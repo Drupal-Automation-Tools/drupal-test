@@ -141,16 +141,16 @@ time and is largely obsolete when using GitHub. -->
     <phplint haltonfailure="true">
       <fileset refid="phpfiles" />
     </phplint> 
-    <antcall target="phpcs" />  
+    <phingcall target="phpcs" />  
   </target>  
 
   <target name="phpcs"> 
     <exec executable="phpcs">
-      <arg value="--report=checkstyle" />
-      <arg value="--report-file=build/reports/checkstyle.xml" />
-      <arg value="--standard=Drupal" />
-      <arg value="--extensions=php,inc" />
-      <arg path="sites/all/modules" />
+      <arg line="--report=checkstyle" />
+      <arg line="--report-file=build/reports/checkstyle.xml" />
+      <arg line="--standard=Drupal" />
+      <arg line="--extensions=php,inc" />
+      <arg value="sites/all/modules" />
     </exec>
   </target>
 
