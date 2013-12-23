@@ -137,16 +137,9 @@ time and is largely obsolete when using GitHub. -->
     <drush command="pm-enable">
       <param>coder</param>
     </drush>
-    <drush command="dl">
-      <param>standalone_coder_review</param>
+    <drush command="test-run">
     </drush>
-    <drush command="pm-enable">
-      <param>standalone_coder_review</param>
-    </drush> 
-    <drush command="standalone-coder-review">
-      <option name="files">source</option>
-      <option name="output-filename">review.xml</option>  
-    </drush>     
+    
   </target>  
 
   <target name="db_create">
