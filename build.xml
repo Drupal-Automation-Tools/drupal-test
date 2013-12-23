@@ -107,6 +107,15 @@ Drush Make and Simpletest support has been sponsored by [DBC](http://www.dbc.dk/
 
   <taskdef name="drush" classpath="build" classname="DrushTask"/>
 
+  <ruleset name="PHP_CodeSniffer">
+   <description>The coding standards for PHP_CodeSniffer.</description>
+
+   <!-- Include the PEAR standard with some exclusions -->
+   <rule ref="PEAR">
+    <exclude name="Generic.WhiteSpace.DisallowTabIndent"/> 
+   </rule>
+  </ruleset>
+
 <!-- ## Main targets -->
 
 <!-- ### Build project
@@ -151,10 +160,9 @@ time and is largely obsolete when using GitHub. -->
       <include name="sites/all/modules/**/*.module" /> 
       <include name="sites/all/modules/**/*.install" />
     </fileset> 
-    <phpcodesniffer standard="Drupal" format="checkstyle"> 
-      <fileset refid="drupalfiles" /> 
-      <formatter type="checkstyle" outfile="reports/checkstyle.xml"/> 
-    </phpcodesniffer> 
+    <exec executable="phpcs">
+      <arg line="--report=checkstyle --report-file=reports/checkstyle.xml --standard=Drupal sites/all/module/*.php" />
+    </exec>
   </target>
 
   <target name="db_create">
