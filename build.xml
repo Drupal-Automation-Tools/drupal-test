@@ -145,12 +145,6 @@ time and is largely obsolete when using GitHub. -->
   </target>  
 
   <target name="phpcs"> 
-    <fileset dir="." id="drupalfiles"> 
-      <include name="sites/all/modules/**/*.php" /> 
-      <include name="sites/all/modules/**/*.inc" /> 
-      <include name="sites/all/modules/**/*.module" /> 
-      <include name="sites/all/modules/**/*.install" />
-    </fileset> 
     <exec executable="phpcs">
       <arg line="--standard=Drupal --extensions=php,inc sites/all/modules" />
     </exec>
