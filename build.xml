@@ -118,7 +118,7 @@ This is the default build target.
 
 Do not run `docs` for now. Generating documentation eats up memory and build
 time and is largely obsolete when using GitHub. -->
-  <target name="build" depends="install">
+  <target name="build" depends="coder-review-d7">
     <echo>Cool!</echo>
   </target>  
 
@@ -129,6 +129,24 @@ time and is largely obsolete when using GitHub. -->
     <phingcall target="simpletest_comment"/>
     <echo>Project installation finished</echo>
   </target>
+
+  <target name="coder-review-d7" description="Review code using Drupal 7 Coder module">
+    <!-- Setup properties for running Coder Review.
+         For some reason these properties are not passed correctly through to
+         subtargets when defining them within the phingcall. -->
+    <property name="coder.review.command" value="coder-review"/>
+
+    <!-- Download and enable the Coder Review module -->
+    <phingcall target="enable-module">
+      <property name="project" value="coder"/>
+      <property name="project.version" value="7.x-1.0"/>
+      <property name="module" value="coder_review"/>
+    </phingcall>
+
+    <!-- Perform actual coder review for each style -->
+    <foreach target="coder-review" param="coder.review.type"
+             list="comment,i18n,security,sql,style" />
+  </target> 
 
   <target name="db_create">
     <echo>Create project database</echo>
