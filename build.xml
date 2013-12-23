@@ -118,7 +118,7 @@ This is the default build target.
 
 Do not run `docs` for now. Generating documentation eats up memory and build
 time and is largely obsolete when using GitHub. -->
-  <target name="build" depends="code_check">
+  <target name="build" depends="init">
     <echo>Cool!</echo>
   </target>  
 
@@ -129,6 +129,10 @@ time and is largely obsolete when using GitHub. -->
     <phingcall target="simpletest_comment"/>
     <echo>Project installation finished</echo>
   </target>
+
+  <target name="init">
+    <phingcall target="code_check" />   
+  </target>  
 
   <target name="code_check" description="Check codes">
     <fileset dir="sites/all/modules" id="phpfiles">
