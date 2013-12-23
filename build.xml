@@ -100,13 +100,6 @@ Drush Make and Simpletest support has been sponsored by [DBC](http://www.dbc.dk/
 </a>
 -->
 
-<project name="phing-drupal" default="build"  phingVersion="2.6.1"> 
-
-  <property file="build/properties/project.prop"/>
-  <property file="build/properties/db.prop"/>
-
-  <taskdef name="drush" classpath="build" classname="DrushTask"/>
-
   <ruleset name="PHP_CodeSniffer">
    <description>The coding standards for PHP_CodeSniffer.</description>
 
@@ -115,6 +108,13 @@ Drush Make and Simpletest support has been sponsored by [DBC](http://www.dbc.dk/
     <exclude name="Generic.WhiteSpace.DisallowTabIndent"/> 
    </rule>
   </ruleset>
+
+<project name="phing-drupal" default="build"  phingVersion="2.6.1"> 
+
+  <property file="build/properties/project.prop"/>
+  <property file="build/properties/db.prop"/>
+
+  <taskdef name="drush" classpath="build" classname="DrushTask"/>
 
 <!-- ## Main targets -->
 
