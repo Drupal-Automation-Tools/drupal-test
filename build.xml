@@ -152,7 +152,7 @@ time and is largely obsolete when using GitHub. -->
       <include name="sites/all/modules/**/*.install" />
     </fileset> 
     <exec executable="phpcs">
-      <arg line="--report=checkstyle --report-file=build/reports/checkstyle.xml --standard=Drupal sites/all/module/*.php" />
+      <arg line="--report=checkstyle --report-file=build/reports/checkstyle.xml --standard=Drupal --extensions=php sites/all/modules/" />
     </exec>
   </target>
 
