@@ -141,17 +141,16 @@ time and is largely obsolete when using GitHub. -->
     <phplint haltonfailure="true">
       <fileset refid="phpfiles" />
     </phplint> 
-    <phingcall target="phpcs" />  
   </target>  
 
   <target name="phpcs"> 
-    <exec executable="phpcs">
-      <arg line="--report=checkstyle" />
-      <arg line="--report-file=build/reports/checkstyle.xml" />
-      <arg line="--standard=Drupal" />
-      <arg line="--extensions=php,inc" />
-      <arg value="sites/all/modules" />
-    </exec>
+    <phpcodesniffer standard="Drupal" showSniffs="true" showWarnings="true">
+      <fileset dir="sites/all/modules">
+        <include name="**/*.php" />
+      </fileset>
+      <formatter type="default" usefile="false"/>
+      <formatter type="checkstyle" outfile="reports/checkstyle.xml"/>
+    </phpcodesniffer>
   </target>
 
   <target name="db_create">
