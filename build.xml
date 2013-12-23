@@ -151,7 +151,7 @@ time and is largely obsolete when using GitHub. -->
       <include name="sites/all/modules/**/*.module" /> 
       <include name="sites/all/modules/**/*.install" />
     </fileset> 
-    <exec command="phpcs --report=checkstyle
+    <exec command="/Application/MAMP/bin/php/php5.5.3/bin/phpcs --report=checkstyle
                     --report-file=reports/checkstyle-codesniffer.xml
                     --standard=Drupal
                     --extensions=php,inc"
