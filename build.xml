@@ -131,16 +131,12 @@ time and is largely obsolete when using GitHub. -->
   </target>
 
   <target name="code_check" description="Check codes">
-    <drush command="dl">
-      <param>coder</param>
-    </drush>
-    <drush command="pm-enable">
-      <param>coder</param>
-    </drush>
-    <drush command="test-run">
-    </drush>
-    <drush command="coder-review">
-    </drush>
+    <fileset dir="sites/all/modules" id="phpfiles">
+      <include name="*.php" />
+    </fileset>  
+    <phplint haltonfailure="true">
+      <fileset refid="phpfiles" />
+    </phplint>  
   </target>  
 
   <target name="db_create">
