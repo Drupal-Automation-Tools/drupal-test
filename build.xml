@@ -146,6 +146,8 @@ time and is largely obsolete when using GitHub. -->
 
   <target name="phpcs"> 
     <exec executable="phpcs">
+      <arg value="--report=checkstyle" />
+      <arg value="--report-file=build/reports/checkstyle.xml" />
       <arg value="--standard=Drupal" />
       <arg value="--extensions=php,inc" />
       <arg path="sites/all/modules" />
