@@ -131,7 +131,7 @@ time and is largely obsolete when using GitHub. -->
   </target>
 
   <target name="init">
-    <phingcall target="phpcs" />   
+    <phingcall target="code_check" />   
   </target>  
 
   <target name="code_check" description="Check codes">
@@ -141,16 +141,19 @@ time and is largely obsolete when using GitHub. -->
     <phplint haltonfailure="true">
       <fileset refid="phpfiles" />
     </phplint> 
+    <phingcall target="phpcs" />  
   </target>  
 
   <target name="phpcs"> 
-    <phpcodesniffer standard="Drupal" showSniffs="true" showWarnings="true">
-      <fileset dir="sites/all/modules">
-        <include name="**/*.php" />
-      </fileset>
-      <formatter type="default" usefile="false"/>
-      <formatter type="checkstyle" outfile="reports/checkstyle.xml"/>
-    </phpcodesniffer>
+    <exec command="rm checkstyle.xml" dir="build/reports" />
+    <echo msg="File cleaned" />
+    <exec executable="phpcs">
+      <arg line="--report=checkstyle" />
+      <arg line="--report-file=build/reports/checkstyle.xml" />
+      <arg line="--standard=Drupal" />
+      <arg line="--extensions=php,inc" />
+      <arg value="sites/all/modules" />
+    </exec>
   </target>
 
   <target name="db_create">
