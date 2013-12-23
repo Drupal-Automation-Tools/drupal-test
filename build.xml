@@ -151,11 +151,10 @@ time and is largely obsolete when using GitHub. -->
       <include name="sites/all/modules/**/*.module" /> 
       <include name="sites/all/modules/**/*.install" />
     </fileset> 
-    <exec command="phpcs --report=checkstyle
-                    --report-file=reports/checkstyle-codesniffer.xml
-                    --standard=Drupal
-                    --extensions=php,inc"
-            logoutput="true" />
+    <phpcodesniffer standard="Drupal" format="checkstyle"> 
+      <fileset refid="drupalfiles" /> 
+      <formatter type="checkstyle" outfile="reports/checkstyle.xml"/> 
+    </phpcodesniffer> 
   </target>
 
   <target name="db_create">
