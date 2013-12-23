@@ -141,7 +141,7 @@ time and is largely obsolete when using GitHub. -->
     <phplint haltonfailure="true">
       <fileset refid="phpfiles" />
     </phplint> 
-    <phingcall target="phpcs" />  
+    <antcall target="phpcs" />  
   </target>  
 
   <target name="phpcs"> 
