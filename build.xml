@@ -131,7 +131,7 @@ time and is largely obsolete when using GitHub. -->
   </target>
 
   <target name="init">
-    <phingcall target="code_check" />   
+    <phingcall target="phpcs" />   
   </target>  
 
   <target name="code_check" description="Check codes">
