@@ -100,15 +100,6 @@ Drush Make and Simpletest support has been sponsored by [DBC](http://www.dbc.dk/
 </a>
 -->
 
-  <ruleset name="PHP_CodeSniffer">
-   <description>The coding standards for PHP_CodeSniffer.</description>
-
-   <!-- Include the PEAR standard with some exclusions -->
-   <rule ref="PEAR">
-    <exclude name="Generic.WhiteSpace.DisallowTabIndent"/> 
-   </rule>
-  </ruleset>
-
 <project name="phing-drupal" default="build"  phingVersion="2.6.1"> 
 
   <property file="build/properties/project.prop"/>
