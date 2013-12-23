@@ -132,7 +132,7 @@ time and is largely obsolete when using GitHub. -->
 
   <target name="lint-php"
           description="Check all PHP files for syntax errors using PHPLint"
-          depends="init">
+          >
     <phplint haltonfailure="true">
       <fileset refid="src.php" />
     </phplint>
@@ -140,7 +140,7 @@ time and is largely obsolete when using GitHub. -->
 
   <target name="lint-php-custom"
           description="Check custom PHP files for syntax errors using PHPLint"
-          depends="init">
+          >
     <phplint haltonfailure="true">
       <fileset refid="src.php.custom" />
     </phplint>
