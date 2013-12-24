@@ -195,7 +195,6 @@ time and is largely obsolete when using GitHub. -->
     <echo>Copy settings.php file</echo>
     <copy file="${project.dir.files}/${project.drupal.settings.file}" 
           tofile="${project.drupal.settings.path}/${project.drupal.settings.file}">
-      <echo>Put project settings</echo>
       <filterchain>
         <replacetokens begintoken="%%" endtoken="%%">
           <!-- MySQL TOKENS -->
