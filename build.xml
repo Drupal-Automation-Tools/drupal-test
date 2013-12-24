@@ -222,8 +222,9 @@ time and is largely obsolete when using GitHub. -->
   </target>
 
   <target name="simpletest">
-    <phingcall target="simpletest_enable" />
-    <phingcall target="simpletest_comment" />
+    <echo msg="Testing" />
+<!--     <phingcall target="simpletest_enable" />
+    <phingcall target="simpletest_comment" /> -->
   </target>  
 
   <target name="simpletest_enable" description="Install drake migration">
