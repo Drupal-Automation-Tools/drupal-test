@@ -122,26 +122,26 @@ time and is largely obsolete when using GitHub. -->
                                 install,
                                 check_codestyle,
                                 simpletest">
-    <echo msg="The end"></echo>
+    <echo msg="The end" />
   </target>  
 
   <target name="init">
-    <echo msg="Starting the project build"></echo>
+    <echo msg="Starting the project build" />
   </target>
 
    
 
   <target name="install" depends="db_jobs, 
                                   drupal_settings" description="Install site">
-    <echo msg="Project installation started">
+    <echo msg="Project installation started" />
   </target>
 
   <target name="db_jobs" depends="db_drop, db_create, db_restore">
-    <echo msg="Project database is ready.">
+    <echo msg="Project database is ready." />
   </target> 
 
   <target name="db_create">
-    <echo msg="Create project database">
+    <echo msg="Create project database" />
     <pdo url="${db.mysql.driver}:host=${db.mysql.host}" 
          userId="${db.mysql.user}" 
          password="${db.mysql.password}" 
@@ -151,7 +151,7 @@ time and is largely obsolete when using GitHub. -->
   </target>
   
   <target name="db_drop">
-    <echo msg="Drop project database">
+    <echo msg="Drop project database" />
     <pdo url="${db.mysql.driver}:host=${db.mysql.host}" 
          userId="${db.mysql.user}" 
          password="${db.mysql.password}" 
@@ -161,7 +161,7 @@ time and is largely obsolete when using GitHub. -->
   </target> 
 
   <target name="db_restore">
-    <echo msg="Restore project database">
+    <echo msg="Restore project database" />
     <pdo url="${db.mysql.driver}:host=${db.mysql.host};dbname=${db.mysql.name}" 
          encoding="utf8"
          userId="${db.mysql.user}" 
@@ -175,7 +175,7 @@ time and is largely obsolete when using GitHub. -->
 
   <target name="drupal_settings" depends="drupal_settings_clean, 
                                           drupal_settings_copy" description="Create drupal settings file">
-    <echo msg="Project configure finished">      
+    <echo msg="Project configure finished" />      
   </target>  
 
   <target name="drupal_settings_clean" description="Delete settings file if it is existing">
@@ -184,7 +184,7 @@ time and is largely obsolete when using GitHub. -->
       <then>
         <chmod file="${project.drupal.settings.path}" mode="0777" />
         <delete file="${project.drupal.settings.path}/${project.drupal.settings.file}" quiet='true' />
-        <echo msg="Delete settings.php file">
+        <echo msg="Delete settings.php file" />
       </then>
     </if>
   </target>
