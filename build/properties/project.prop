@@ -3,5 +3,6 @@ project.dir.build=${project.dir.base}/build
 project.dir.reports=${project.dir.build}/reports
 project.dir.files=${project.dir.build}/files
 project.dir.backup=${project.dir.base}/backup
-project.drupal.settings.path=sites/default
+project.drupal.settings.dir=sites/default
 project.drupal.settings.file=settings.php
+project.drupal.module.dir=sites/all/modules
