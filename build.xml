@@ -124,6 +124,7 @@ time and is largely obsolete when using GitHub. -->
   </target>  
 
   <target name="init">
+    <echo>Starting the project build</echo>
     <!-- <phingcall target="code_check" />    -->
   </target>
 
