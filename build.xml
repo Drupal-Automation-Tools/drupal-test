@@ -102,8 +102,8 @@ Drush Make and Simpletest support has been sponsored by [DBC](http://www.dbc.dk/
 
 <project name="phing-drupal" default="build"  phingVersion="2.6.1"> 
 
-  <property file="${project.dir.properties}/project.prop"/>
-  <property file="${project.dir.properties}/db.prop"/>
+  <property file="build/properties/project.prop"/>
+  <property file="build/properties/db.prop"/>
 
   <taskdef name="drush" classpath="build" classname="DrushTask"/>
 
